@@ -2,92 +2,94 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Publications on Jakub Kuzilek</title>
-    <link>http://people.ciirc.cvut.cz/~kuziljak/publication/</link>
+    <link>/publication/</link>
     <description>Recent content in Publications on Jakub Kuzilek</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018 Jakub Kuzilek</copyright>
     <lastBuildDate>Tue, 09 Jan 2018 00:00:00 +0100</lastBuildDate>
-    <atom:link href="/~kuziljak/publication/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="/publication/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Learning Analytics Dashboard Analysing First-Year Engineering Students</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/learning_analytics_dashboard_analysing_first_year_engineering_students/</link>
+      <link>/publication/learning_analytics_dashboard_analysing_first_year_engineering_students/</link>
       <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/learning_analytics_dashboard_analysing_first_year_engineering_students/</guid>
+      <guid>/publication/learning_analytics_dashboard_analysing_first_year_engineering_students/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Student Drop-out Modelling Using Virtual Learning Environment Behaviour Data</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/student_drop_out_modelling_using_virtual_learning_environment_behaviour_data/</link>
+      <link>/publication/student_drop_out_modelling_using_virtual_learning_environment_behaviour_data/</link>
       <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/student_drop_out_modelling_using_virtual_learning_environment_behaviour_data/</guid>
+      <guid>/publication/student_drop_out_modelling_using_virtual_learning_environment_behaviour_data/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Open University Learning Analytics dataset</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/open_university_learning_analytics_dataset/</link>
+      <link>/publication/open_university_learning_analytics_dataset/</link>
       <pubDate>Tue, 28 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/open_university_learning_analytics_dataset/</guid>
+      <guid>/publication/open_university_learning_analytics_dataset/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Electrocardiogram beat detection enhancement using Independent Component Analysis</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/electrocardiogram_beat_detection_enhancement_using_independent_component_analysis/</link>
+      <link>/publication/electrocardiogram_beat_detection_enhancement_using_independent_component_analysis/</link>
       <pubDate>Sat, 15 Jun 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/electrocardiogram_beat_detection_enhancement_using_independent_component_analysis/</guid>
+      <guid>/publication/electrocardiogram_beat_detection_enhancement_using_independent_component_analysis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Scoring system for 12 lead ECG quality assessment</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/scoring_system_for_12_lead_ecg_quality_assessment/</link>
+      <link>/publication/scoring_system_for_12_lead_ecg_quality_assessment/</link>
       <pubDate>Sun, 09 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/scoring_system_for_12_lead_ecg_quality_assessment/</guid>
+      <guid>/publication/scoring_system_for_12_lead_ecg_quality_assessment/</guid>
       <description></description>
     </item>
     
     <item>
       <title>An automatic method for holter ECG denoising using ICA</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/an_automatic_method_for_holter_ecg_denoising_using_ica/</link>
+      <link>/publication/an_automatic_method_for_holter_ecg_denoising_using_ica/</link>
       <pubDate>Wed, 26 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/an_automatic_method_for_holter_ecg_denoising_using_ica/</guid>
+      <guid>/publication/an_automatic_method_for_holter_ecg_denoising_using_ica/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Data driven approach to ECG signal quality assessment using multistep SVM classification</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/data_driven_approach_to_ecg_signal_quality_assessment_using_svm_classification/</link>
+      <link>/publication/data_driven_approach_to_ecg_signal_quality_assessment_using_svm_classification/</link>
       <pubDate>Tue, 20 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/data_driven_approach_to_ecg_signal_quality_assessment_using_svm_classification/</guid>
+      <guid>/publication/data_driven_approach_to_ecg_signal_quality_assessment_using_svm_classification/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Detection of inferior myocardial infarction: a comparison of various decision systems and learning algorithms</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/detection_of_inferior_myocardial_infarction/</link>
+      <link>/publication/detection_of_inferior_myocardial_infarction/</link>
       <pubDate>Sun, 10 Oct 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/detection_of_inferior_myocardial_infarction/</guid>
+      <guid>/publication/detection_of_inferior_myocardial_infarction/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Processing holter ECG signal corrupted with noise: Using ICA for QRS complex detection</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/processing_holter_ecg_signal_corrupted_with_noise/</link>
+      <link>/publication/processing_holter_ecg_signal_corrupted_with_noise/</link>
       <pubDate>Sun, 10 Oct 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/processing_holter_ecg_signal_corrupted_with_noise/</guid>
+      <guid>/publication/processing_holter_ecg_signal_corrupted_with_noise/</guid>
       <description></description>
     </item>
     

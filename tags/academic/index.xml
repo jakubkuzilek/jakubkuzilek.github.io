@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Content tagged as &#39;Academic&#39; on Jakub Kuzilek</title>
+    <link>/tags/academic/</link>
+    <description>Recent content in Content tagged as &#39;Academic&#39; on Jakub Kuzilek</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018 Jakub Kuzilek</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/academic/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Student drop-out modelling using Virtual Learning Environment behaviour data</title>
+      <link>/post/2018_04_12_student_behaviour_analysis/</link>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018_04_12_student_behaviour_analysis/</guid>
+      <description>This post is a companion for the short paper submitted to EC-TEL 2018 conference. It contains details of the whole study and some more information such as figures, which does not fit in to the paper. For the analysis we used Open University Learning Analytics dataset.
+ This is draft version of companion, if you spot an error, typo or you have any comment, please let me know.</description>
+    </item>
+    
+    <item>
+      <title>Hurray! My webpage is finished!</title>
+      <link>/post/2018_01_23_web_page_finished/</link>
+      <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018_01_23_web_page_finished/</guid>
+      <description>Finally, after days of struggling with bureaucracy, I managed to find enough time to complete my first blogdown project - my personal academic webpage! I must admit it blogdown is awesome and the way Hugo works is brilliant.
+What seems to be problematic is to migrate all my publications list. I think I will start with that. Maybe this will be my next post in near future (hope not far future…).</description>
+    </item>
+    
+  </channel>
+</rss>

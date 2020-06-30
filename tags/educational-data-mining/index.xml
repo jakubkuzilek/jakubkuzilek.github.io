@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>educational-data-mining on Jakub Kuzilek</title>
+    <link>/tags/educational-data-mining/</link>
+    <description>Recent content in educational-data-mining on Jakub Kuzilek</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018 Jakub Kuzilek</copyright>
+    <lastBuildDate>Tue, 09 Jan 2018 00:00:00 +0100</lastBuildDate>
+    
+	<atom:link href="/tags/educational-data-mining/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Student Analyse</title>
+      <link>/project/student_analyse/</link>
+      <pubDate>Tue, 09 Jan 2018 00:00:00 +0100</pubDate>
+      
+      <guid>/project/student_analyse/</guid>
+      <description>The project aims at the development of predictive modelling methods reflecting different views (levels) of student academic path and dependencies between „resources” student interacts with during the learning process. In addition, by investigating dependencies between „educational resources” we will develop methods for the analysis of student learning behaviour. All developed methods will be tested on real data provided by partner institutions - Open University and Faculty of Mechanical Engineering, CTU in Prague.</description>
+    </item>
+    
+    <item>
+      <title>OU Analyse</title>
+      <link>/project/ou_analyse_project/</link>
+      <pubDate>Wed, 01 Jan 2014 00:00:00 +0100</pubDate>
+      
+      <guid>/project/ou_analyse_project/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

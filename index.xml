@@ -2,42 +2,42 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jakub Kuzilek on Jakub Kuzilek</title>
-    <link>http://people.ciirc.cvut.cz/~kuziljak/</link>
+    <link>/</link>
     <description>Recent content in Jakub Kuzilek on Jakub Kuzilek</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018 Jakub Kuzilek</copyright>
     <lastBuildDate>Sun, 15 Oct 2017 00:00:00 +0200</lastBuildDate>
-    <atom:link href="/~kuziljak/" rel="self" type="application/rss+xml" />
+    <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Learning Analytics Dashboard Analysing First-Year Engineering Students</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/learning_analytics_dashboard_analysing_first_year_engineering_students/</link>
+      <link>/publication/learning_analytics_dashboard_analysing_first_year_engineering_students/</link>
       <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/learning_analytics_dashboard_analysing_first_year_engineering_students/</guid>
+      <guid>/publication/learning_analytics_dashboard_analysing_first_year_engineering_students/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Student Drop-out Modelling Using Virtual Learning Environment Behaviour Data</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/student_drop_out_modelling_using_virtual_learning_environment_behaviour_data/</link>
+      <link>/publication/student_drop_out_modelling_using_virtual_learning_environment_behaviour_data/</link>
       <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/student_drop_out_modelling_using_virtual_learning_environment_behaviour_data/</guid>
+      <guid>/publication/student_drop_out_modelling_using_virtual_learning_environment_behaviour_data/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Student drop-out modelling using Virtual Learning Environment behaviour data</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/post/2018_04_12_student_behaviour_analysis/</link>
+      <link>/post/2018_04_12_student_behaviour_analysis/</link>
       <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/post/2018_04_12_student_behaviour_analysis/</guid>
-      <description>&lt;script src=&#34;http://people.ciirc.cvut.cz/~kuziljak/~kuziljak/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;http://people.ciirc.cvut.cz/~kuziljak/~kuziljak/rmarkdown-libs/viz/viz.js&#34;&gt;&lt;/script&gt;
-&lt;link href=&#34;http://people.ciirc.cvut.cz/~kuziljak/~kuziljak/rmarkdown-libs/DiagrammeR-styles/styles.css&#34; rel=&#34;stylesheet&#34; /&gt;
-&lt;script src=&#34;http://people.ciirc.cvut.cz/~kuziljak/~kuziljak/rmarkdown-libs/grViz-binding/grViz.js&#34;&gt;&lt;/script&gt;
+      <guid>/post/2018_04_12_student_behaviour_analysis/</guid>
+      <description>&lt;script src=&#34;/~kuziljak/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/~kuziljak/rmarkdown-libs/viz/viz.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;/~kuziljak/rmarkdown-libs/DiagrammeR-styles/styles.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;/~kuziljak/rmarkdown-libs/grViz-binding/grViz.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;This post is a companion for the short paper submitted to &lt;a href=&#34;http://www.ec-tel.eu/index.php?id=791&#34;&gt;EC-TEL 2018 conference&lt;/a&gt;. It
@@ -687,11 +687,14 @@ tends to do nothing and are passive for the whole course&lt;/li&gt;
     
     <item>
       <title>Hurray! My webpage is finished!</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/post/2018_01_23_web_page_finished/</link>
+      <link>/post/2018_01_23_web_page_finished/</link>
       <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/post/2018_01_23_web_page_finished/</guid>
-      <description>&lt;p&gt;Finally, after days of struggling with bureaucracy, I managed to find enough time to complete my first &lt;code&gt;blogdown&lt;/code&gt; project - my personal academic webpage! I must admit it &lt;code&gt;blogdown&lt;/code&gt; is awesome and the way Hugo works is brilliant.&lt;/p&gt;
+      <guid>/post/2018_01_23_web_page_finished/</guid>
+      <description>&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Finally, after days of struggling with bureaucracy, I managed to find enough time to complete my first &lt;code&gt;blogdown&lt;/code&gt; project - my personal academic webpage! I must admit it &lt;code&gt;blogdown&lt;/code&gt; is awesome and the way Hugo works is brilliant.&lt;/p&gt;
 &lt;p&gt;What seems to be problematic is to migrate all my publications list. I think I will start with that. Maybe this will be my next post in near future (hope not far future…).&lt;/p&gt;
 &lt;p&gt;Btw. I really like the pyramid bar chart, which was included in a template file. Thus I will keep it here:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mar = c(0, 1, 0, 1))
@@ -702,7 +705,7 @@ pie(
   init.angle = -50, border = NA
 )&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:pie&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;http://people.ciirc.cvut.cz/~kuziljak/~kuziljak/post/2018_01_23_web_page_finished_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
+&lt;img src=&#34;/post/2018_01_23_web_page_finished_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figure 1: A fancy pie chart.
 &lt;/p&gt;
@@ -712,10 +715,10 @@ Figure 1: A fancy pie chart.
     
     <item>
       <title>Student Analyse</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/project/student_analyse/</link>
+      <link>/project/student_analyse/</link>
       <pubDate>Tue, 09 Jan 2018 00:00:00 +0100</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/project/student_analyse/</guid>
+      <guid>/project/student_analyse/</guid>
       <description>&lt;p&gt;The project aims at the development of predictive modelling methods reflecting different views (levels) of student academic path and dependencies between „resources” student interacts with during the learning process. In addition, by investigating dependencies between „educational resources” we will develop methods for the analysis of student learning behaviour. All developed methods will be tested on real data provided by partner institutions - Open University and
 Faculty of Mechanical Engineering, CTU in Prague. To reflect educational aspects of the research we will investigate educational impact of predictive modelling outputs on study results.&lt;/p&gt;
 </description>
@@ -723,83 +726,83 @@ Faculty of Mechanical Engineering, CTU in Prague. To reflect educational aspects
     
     <item>
       <title>Open University Learning Analytics dataset</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/open_university_learning_analytics_dataset/</link>
+      <link>/publication/open_university_learning_analytics_dataset/</link>
       <pubDate>Tue, 28 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/open_university_learning_analytics_dataset/</guid>
+      <guid>/publication/open_university_learning_analytics_dataset/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Example Talk</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/talk/example-talk/</link>
+      <link>/talk/example-talk/</link>
       <pubDate>Sun, 01 Jan 2017 00:00:00 +0100</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/talk/example-talk/</guid>
+      <guid>/talk/example-talk/</guid>
       <description>&lt;p&gt;Embed your slides or video here using &lt;a href=&#34;https://sourcethemes.com/academic/post/writing-markdown-latex/&#34; target=&#34;_blank&#34;&gt;shortcodes&lt;/a&gt;. Further details can easily be added using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>OU Analyse</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/project/ou_analyse_project/</link>
+      <link>/project/ou_analyse_project/</link>
       <pubDate>Wed, 01 Jan 2014 00:00:00 +0100</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/project/ou_analyse_project/</guid>
+      <guid>/project/ou_analyse_project/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Electrocardiogram beat detection enhancement using Independent Component Analysis</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/electrocardiogram_beat_detection_enhancement_using_independent_component_analysis/</link>
+      <link>/publication/electrocardiogram_beat_detection_enhancement_using_independent_component_analysis/</link>
       <pubDate>Sat, 15 Jun 2013 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/electrocardiogram_beat_detection_enhancement_using_independent_component_analysis/</guid>
+      <guid>/publication/electrocardiogram_beat_detection_enhancement_using_independent_component_analysis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Scoring system for 12 lead ECG quality assessment</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/scoring_system_for_12_lead_ecg_quality_assessment/</link>
+      <link>/publication/scoring_system_for_12_lead_ecg_quality_assessment/</link>
       <pubDate>Sun, 09 Sep 2012 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/scoring_system_for_12_lead_ecg_quality_assessment/</guid>
+      <guid>/publication/scoring_system_for_12_lead_ecg_quality_assessment/</guid>
       <description></description>
     </item>
     
     <item>
       <title>An automatic method for holter ECG denoising using ICA</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/an_automatic_method_for_holter_ecg_denoising_using_ica/</link>
+      <link>/publication/an_automatic_method_for_holter_ecg_denoising_using_ica/</link>
       <pubDate>Wed, 26 Oct 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/an_automatic_method_for_holter_ecg_denoising_using_ica/</guid>
+      <guid>/publication/an_automatic_method_for_holter_ecg_denoising_using_ica/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Data driven approach to ECG signal quality assessment using multistep SVM classification</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/data_driven_approach_to_ecg_signal_quality_assessment_using_svm_classification/</link>
+      <link>/publication/data_driven_approach_to_ecg_signal_quality_assessment_using_svm_classification/</link>
       <pubDate>Tue, 20 Sep 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/data_driven_approach_to_ecg_signal_quality_assessment_using_svm_classification/</guid>
+      <guid>/publication/data_driven_approach_to_ecg_signal_quality_assessment_using_svm_classification/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Detection of inferior myocardial infarction: a comparison of various decision systems and learning algorithms</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/detection_of_inferior_myocardial_infarction/</link>
+      <link>/publication/detection_of_inferior_myocardial_infarction/</link>
       <pubDate>Sun, 10 Oct 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/detection_of_inferior_myocardial_infarction/</guid>
+      <guid>/publication/detection_of_inferior_myocardial_infarction/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Processing holter ECG signal corrupted with noise: Using ICA for QRS complex detection</title>
-      <link>http://people.ciirc.cvut.cz/~kuziljak/publication/processing_holter_ecg_signal_corrupted_with_noise/</link>
+      <link>/publication/processing_holter_ecg_signal_corrupted_with_noise/</link>
       <pubDate>Sun, 10 Oct 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://people.ciirc.cvut.cz/~kuziljak/publication/processing_holter_ecg_signal_corrupted_with_noise/</guid>
+      <guid>/publication/processing_holter_ecg_signal_corrupted_with_noise/</guid>
       <description></description>
     </item>
     
