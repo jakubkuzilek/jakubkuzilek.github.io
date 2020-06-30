@@ -1,0 +1,143 @@
+@inproceedings{kuzilek2013extraction,
+  title={Extraction of beats from noisy ECG using ICA},
+  author={Kuzilek, Jakub and Lhotska, Lenka and Huptych, Michal},
+  booktitle={World Congress on Medical Physics and Biomedical Engineering May 26-31, 2012, Beijing, China},
+  pages={469--472},
+  year={2013},
+  organization={Springer, Berlin, Heidelberg}
+}
+
+@inproceedings{macavs2012linear,
+  title={Linear Bayes classification for mortality prediction},
+  author={Maca{\v{s}}, Martin and Kuzilek, Jakub and Odstr{\v{c}}il{\'\i}k, Tade{\'a}{\v{s}} and Huptych, Michal},
+  booktitle={Computing in Cardiology (CinC), 2012},
+  pages={473--476},
+  year={2012},
+  organization={IEEE}
+}
+
+@inproceedings{vavrecka2010classification,
+  title={Classification of the EEG feature components},
+  author={Vavrecka, Michal and Kuzilek, Jakub and Lhotska, Lenka},
+  booktitle={Information Technology and Applications in Biomedicine (ITAB), 2010 10th IEEE International Conference on},
+  pages={1--4},
+  year={2010},
+  organization={IEEE}
+}
+
+@inproceedings{lhotska2013case,
+  title={Case studies of students' involvement in research},
+  author={Lhotska, Lenka and Kuzilek, Jakub and Chudacek, Vaclav and Novak, Petr and Novak, Daniel and Havlik, Jan},
+  booktitle={EAEEIE Annual Conference (EAEEIE), 2013 Proceedings of the 24th},
+  pages={204--209},
+  year={2013},
+  organization={IEEE}
+}
+
+@article{kuvzilek2013independent,
+  title={Independent component analysis: Applications in ecg signal processing},
+  author={Ku{\v{z}}{\'\i}lek, Jakub},
+  year={2013}
+}
+
+@article{kuzilekindependent,
+  title={Independent Component Analysis for ECG holter recording de-noising},
+  author={Kuzilek, Jakub and Lhotska, Lenka}
+}
+
+@article{macavs2014binary,
+  title={Binary social impact theory based optimization and its applications in pattern recognition},
+  author={Maca{\v{s}}, Martin and Bhondekar, Amol P and Kumar, Ritesh and Kaur, Rishemjit and Kuzilek, Jakub and Gerla, V{\'a}clav and Lhotsk{\'a}, Lenka and Kapur, Pawan},
+  journal={Neurocomputing},
+  volume={132},
+  pages={85--96},
+  year={2014},
+  publisher={Elsevier}
+}
+
+@inproceedings{kuzilek2013advanced,
+  title={Advanced signal processing techniques for fetal ECG analysis},
+  author={Kuzilek, Jakub and Lhotska, Lenka},
+  booktitle={Computing in Cardiology Conference (CinC), 2013},
+  pages={177--180},
+  year={2013},
+  organization={IEEE}
+}
+
+@article{kuzilek2014independent,
+  title={Independent component analysis and decision trees for ECG holter recording de-noising},
+  author={Kuzilek, Jakub and Kremen, Vaclav and Soucek, Filip and Lhotska, Lenka},
+  journal={PloS one},
+  volume={9},
+  number={6},
+  pages={e98450},
+  year={2014},
+  publisher={Public Library of Science}
+}
+
+@article{hlosta2014modelling,
+  title={Modelling student online behaviour in a virtual learning environment},
+  author={Hlosta, Martin and Herrmannova, Drahomira and Vachova, Lucie and Kuzilek, Jakub and Zdrahal, Zdenek and Wolff, Annika},
+  year={2014}
+}
+
+@article{wolff2014developing,
+  title={Developing predictive models for early detection of at-risk students on distance learning modules},
+  author={Wolff, Annika and Zdrahal, Zdenek and Herrmannova, Drahomira and Kuzilek, Jakub and Hlosta, Martin},
+  year={2014}
+}
+
+@inproceedings{kuzilek2014comparison,
+  title={Comparison of jade and canonical correlation analysis for ecg de-noising},
+  author={Kuzilek, Jakub and Kremen, Vaclav and Lhotska, Lenka},
+  booktitle={Engineering in Medicine and Biology Society (EMBC), 2014 36th Annual International Conference of the IEEE},
+  pages={3857--3860},
+  year={2014},
+  organization={IEEE}
+}
+
+@article{kuzilek2015analyse,
+  title={OU Analyse: analysing at-risk students at The Open University},
+  author={Kuzilek, Jakub and Hlosta, Martin and Herrmannova, Drahomira and Zdrahal, Zdenek and Wolff, Annika},
+  journal={Learning Analytics Review},
+  pages={1--16},
+  year={2015}
+}
+
+@inproceedings{kuvzilek2011multimedia,
+  title={Multimedia Support in Education of ECG Signal Analysis},
+  author={Ku{\v{z}}{\'\i}lek, J and Spilka, J and K{\v{r}}emen, V and Lhotsk{\'a}, L},
+  booktitle={5th European Conference of the International Federation for Medical and Biological Engineering},
+  pages={1378--1381},
+  year={2011},
+  organization={Springer, Berlin, Heidelberg}
+}
+
+@article{herrmannova2015evaluating,
+  title={Evaluating Weekly Predictions of At-Risk Students at The Open University: Results and Issues},
+  author={Herrmannova, Drahomira and Hlosta, Martin and Kuzilek, Jakub and Zdrahal, Zdenek},
+  year={2015}
+}
+
+@article{zdrahalanalysing,
+  title={Analysing performace of first year engineering students},
+  author={Zdrahal, Zdenek and Hlosta, Martin and Kuzilek, Jakub}
+}
+
+@inproceedings{wolff2016data,
+  title={Data literacy for learning analytics},
+  author={Wolff, Annika and Moore, John and Zdrahal, Zdenek and Hlosta, Martin and Kuzilek, Jakub},
+  booktitle={Proceedings of the Sixth International Conference on Learning Analytics \& Knowledge},
+  pages={500--501},
+  year={2016},
+  organization={ACM}
+}
+
+@inproceedings{zach2011mobile,
+  title={Mobile CTG—Fetal heart rate assessment using Android platform},
+  author={Zach, Luk{\'a}{\v{s}} and Chud{\'a}{\v{c}}ek, V{\'a}clav and Ku{\v{z}}{\'\i}lek, Jakub and Spilka, Ji{\v{r}}{\'\i} and Huptych, Michal and Bur{\v{s}}a, Miroslav and Lhotsk{\'a}, Lenka},
+  booktitle={Computing in Cardiology, 2011},
+  pages={249--252},
+  year={2011},
+  organization={IEEE}
+}

@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Jakub Kuzilek</title>
+    <link>http://people.ciirc.cvut.cz/~kuziljak/post/</link>
+    <description>Recent content in Posts on Jakub Kuzilek</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018 Jakub Kuzilek</copyright>
+    <lastBuildDate>Sun, 01 Jan 2017 00:00:00 +0100</lastBuildDate>
+    <atom:link href="/~kuziljak/post/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Student drop-out modelling using Virtual Learning Environment behaviour data</title>
+      <link>http://people.ciirc.cvut.cz/~kuziljak/post/2018_04_12_student_behaviour_analysis/</link>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://people.ciirc.cvut.cz/~kuziljak/post/2018_04_12_student_behaviour_analysis/</guid>
+      <description>&lt;script src=&#34;http://people.ciirc.cvut.cz/~kuziljak/~kuziljak/rmarkdown-libs/htmlwidgets/htmlwidgets.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;http://people.ciirc.cvut.cz/~kuziljak/~kuziljak/rmarkdown-libs/viz/viz.js&#34;&gt;&lt;/script&gt;
+&lt;link href=&#34;http://people.ciirc.cvut.cz/~kuziljak/~kuziljak/rmarkdown-libs/DiagrammeR-styles/styles.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;http://people.ciirc.cvut.cz/~kuziljak/~kuziljak/rmarkdown-libs/grViz-binding/grViz.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;This post is a companion for the short paper submitted to &lt;a href=&#34;http://www.ec-tel.eu/index.php?id=791&#34;&gt;EC-TEL 2018 conference&lt;/a&gt;. It
+contains details of the whole study and some more information such as figures, which
+does not fit in to the paper. For the analysis we used &lt;a href=&#34;https://github.com/jakubkuzilek/oulad&#34;&gt;Open University Learning Analytics dataset&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This is draft version of companion, if you spot an error, typo or you have any comment, please let me know.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div id=&#34;setup&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Setup&lt;/h1&gt;
+&lt;p&gt;First we will load the required packages:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ──────────────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+## ✔ readr   1.1.1     ✔ forcats 0.3.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Conflicts ─────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(stringr)
+library(oulad)
+library(matlib)
+library(DiagrammeR)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Data&lt;/h1&gt;
+&lt;p&gt;We will be using data from OULAD and we will stick with only one course presentation,
+namely &lt;em&gt;FFF&lt;/em&gt;/&lt;em&gt;2014J&lt;/em&gt;. At first, the student Virtual Learning Environment (VLE) activity logs
+and list of available VLE “resources”&amp;quot; is extracted:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# available VLE resources
+filtered_vle &amp;lt;- vle %&amp;gt;% 
+  filter(code_module == &amp;quot;FFF&amp;quot;, 
+         code_presentation == &amp;quot;2014J&amp;quot;)
+
+str(filtered_vle)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    452 obs. of  6 variables:
+##  $ id_site          : int  883082 883294 882713 883163 882561 882932 883195 882597 882985 883228 ...
+##  $ code_module      : chr  &amp;quot;FFF&amp;quot; &amp;quot;FFF&amp;quot; &amp;quot;FFF&amp;quot; &amp;quot;FFF&amp;quot; ...
+##  $ code_presentation: chr  &amp;quot;2014J&amp;quot; &amp;quot;2014J&amp;quot; &amp;quot;2014J&amp;quot; &amp;quot;2014J&amp;quot; ...
+##  $ activity_type    : chr  &amp;quot;subpage&amp;quot; &amp;quot;url&amp;quot; &amp;quot;questionnaire&amp;quot; &amp;quot;url&amp;quot; ...
+##  $ week_from        : int  NA NA 19 14 9 NA 18 29 NA 23 ...
+##  $ week_to          : int  NA NA 19 14 9 NA 18 29 NA 23 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# student activity logs
+filtered_student_vle &amp;lt;- student_vle %&amp;gt;% 
+  filter(code_module == &amp;quot;FFF&amp;quot;, 
+         code_presentation == &amp;quot;2014J&amp;quot;)
+
+str(filtered_student_vle)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## &amp;#39;data.frame&amp;#39;:    1210359 obs. of  6 variables:
+##  $ code_module      : chr  &amp;quot;FFF&amp;quot; &amp;quot;FFF&amp;quot; &amp;quot;FFF&amp;quot; &amp;quot;FFF&amp;quot; ...
+##  $ code_presentation: chr  &amp;quot;2014J&amp;quot; &amp;quot;2014J&amp;quot; &amp;quot;2014J&amp;quot; &amp;quot;2014J&amp;quot; ...
+##  $ id_student       : int  2398260 2398260 2398260 2398260 2398260 2398260 2398260 2398260 2398260 2398260 ...
+##  $ id_site          : int  883041 882602 882587 883142 883092 883064 883037 883060 882670 882663 ...
+##  $ date             : int  -18 -18 -18 -18 -18 -18 -18 -18 -18 -18 ...
+##  $ sum_click        : int  1 1 2 1 1 1 1 1 1 5 ...&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It can be observed that there are 452 resources available to study for the course and
+more than 1.2 million records of student activity in VLE.&lt;/p&gt;
+&lt;p&gt;Since the first assessment will be considered in part of our research, the information
+is extracted from data.frame &lt;code&gt;assessment&lt;/code&gt; and week, in which the assessment has cut-off date is computed:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;assessment_day &amp;lt;- assessment %&amp;gt;% 
+  filter(code_module == &amp;quot;FFF&amp;quot;, 
+         code_presentation == &amp;quot;2014J&amp;quot;, 
+         assessment_type == &amp;quot;TMA&amp;quot;) %&amp;gt;% 
+  select(id_assessment, date) %&amp;gt;% 
+  rename(assessment_day = date) %&amp;gt;% 
+  mutate(assessment_week = ceiling(assessment_day/7))
+
+assessment_day&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   id_assessment assessment_day assessment_week
+## 1         34899             24               4
+## 2         34900             52               8
+## 3         34901             94              14
+## 4         34902            136              20
+## 5         34903            199              29&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We will also need the results of the first assessment:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;assessments &amp;lt;- assessment %&amp;gt;% 
+  filter(code_module == &amp;quot;FFF&amp;quot;, 
+         code_presentation == &amp;quot;2014J&amp;quot;,
+         assessment_type == &amp;quot;TMA&amp;quot;)
+
+student_assessment_results &amp;lt;- student_assessment %&amp;gt;% 
+  inner_join(assessments, by=&amp;quot;id_assessment&amp;quot;) %&amp;gt;% 
+  select(id_student, id_assessment, date_submitted, is_banked, score) 
+
+head(student_assessment_results)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   id_student id_assessment date_submitted is_banked score
+## 1     560047         34899             24     FALSE    84
+## 2     560459         34899             29     FALSE    48
+## 3     560645         34899             23     FALSE   100
+## 4     560765         34899             23     FALSE    78
+## 5     561231         34899             22     FALSE    80
+## 6     562754         34899             21     FALSE    76&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally we will need student final outcome of the course to be able those who
+withdrawn:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;student_final_results &amp;lt;- student %&amp;gt;% 
+  filter(code_module == &amp;quot;FFF&amp;quot;, 
+         code_presentation == &amp;quot;2014J&amp;quot;) %&amp;gt;% 
+  select(id_student, final_result) 
+
+student_unregistration &amp;lt;- student_registration %&amp;gt;% 
+  filter(code_module == &amp;quot;FFF&amp;quot;, 
+         code_presentation == &amp;quot;2014J&amp;quot;) %&amp;gt;% 
+  select(id_student, date_unregistration)
+
+student_final_results &amp;lt;- student_final_results %&amp;gt;% 
+  left_join(student_unregistration, by = &amp;quot;id_student&amp;quot;) %&amp;gt;% 
+  mutate(date_unregistration = ceiling(date_unregistration/7))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next the study plan information is refined:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# study plan
+plan &amp;lt;- filtered_vle %&amp;gt;% 
+  mutate(week = week_from) %&amp;gt;% 
+  select(id_site, 
+         activity_type,
+         week) %&amp;gt;% 
+  arrange(week)
+
+head(plan)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   id_site activity_type week
+## 1  882707          page    1
+## 2  883183           url    1
+## 3  883177           url    1
+## 4  883233           url    1
+## 5  882669     oucontent    1
+## 6  883040       subpage    1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# count how many planned resources are scheduled for the week
+planed_resources &amp;lt;- plan %&amp;gt;% 
+  group_by(week) %&amp;gt;% 
+  summarise(max_resources = n()) %&amp;gt;% 
+  ungroup() %&amp;gt;% 
+  filter(!is.na(week))
+
+head(planed_resources)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 2
+##    week max_resources
+##   &amp;lt;int&amp;gt;         &amp;lt;int&amp;gt;
+## 1     1            13
+## 2     2             5
+## 3     3             5
+## 4     4             1
+## 5     5             6
+## 6     7             2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The real student behaviour was prepared as follows. The activities from before the start of
+the course were excluded; for every log entry week, in which student did the activity,
+is computed from the &lt;code&gt;date&lt;/code&gt; and finally only columns of interest were extracted:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;reality &amp;lt;- filtered_student_vle %&amp;gt;% 
+  filter(date &amp;gt;= 0L) %&amp;gt;% 
+  mutate(date = if_else(date == 0L, 1L, date), 
+         week = ceiling(date/7)) %&amp;gt;% 
+  select(id_student,
+         id_site,
+         week)
+
+head(reality)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   id_student id_site week
+## 1     489493  882537    1
+## 2     489553  882545    1
+## 3     489493  883040    1
+## 4     489493  882587    1
+## 5     489493  882545    1
+## 6     489493  882545    1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can combine real student behaviour with the plan:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data_combined &amp;lt;- reality %&amp;gt;%
+  rename(student_week = week) %&amp;gt;% 
+  left_join(plan, by=c(&amp;quot;id_site&amp;quot;)) %&amp;gt;% 
+  unique() %&amp;gt;% 
+  rename(planned_week = week)
+
+# example
+data_combined %&amp;gt;% 
+  filter(id_student == 35747) %&amp;gt;% 
+  head()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   id_student id_site student_week activity_type planned_week
+## 1      35747  882551            1       forumng           NA
+## 2      35747  882609            1     oucontent           NA
+## 3      35747  882545            1       forumng           NA
+## 4      35747  882547            1       forumng           NA
+## 5      35747  883092            1       subpage           NA
+## 6      35747  882537            1      homepage           NA&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If we look at plan, we can observe that there are planned activities up to week 29:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plan %&amp;gt;% 
+  select(week) %&amp;gt;% 
+  max(na.rm = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 29&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Thus we will focus only on first 29 weeks of studies.&lt;/p&gt;
+&lt;p&gt;We can now do activity categorization for the purpose of creating the Markov chain:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# find out if student did something in the week according to the plan
+student_activities &amp;lt;- data_combined %&amp;gt;% 
+  select(-id_site) %&amp;gt;% 
+  mutate(planned_week = if_else(is.na(planned_week),-1L,planned_week),
+         planned = if_else(student_week == planned_week, &amp;quot;Y&amp;quot;,&amp;quot;N&amp;quot;)) %&amp;gt;% 
+  group_by(id_student, student_week, planned) %&amp;gt;%
+  count() %&amp;gt;% 
+  ungroup() %&amp;gt;% 
+  rename(week = student_week)
+
+# get maximum week in plan
+maximal_planned_week &amp;lt;- planed_resources %&amp;gt;% 
+  summarise(max(week)) %&amp;gt;% 
+  as.integer()
+
+# classify student activities:
+# for planned activity we have 0 for none, E for some and A for all
+# for nonplanned activity we have 0 for none and E for did something
+# format PlannedNonplanned, example: A0 - all from the plan, nothing else
+student_activities_classified &amp;lt;- student_activities %&amp;gt;% 
+  filter(week &amp;lt;= maximal_planned_week) %&amp;gt;%
+  left_join(planed_resources, by = &amp;quot;week&amp;quot;) %&amp;gt;% 
+  mutate(max_resources = if_else(planned == &amp;quot;N&amp;quot;, n, max_resources),
+         percentage = n/max_resources # proportion of planned activities in week
+  ) %&amp;gt;% 
+  select(-n, -max_resources) %&amp;gt;% 
+  group_by(id_student, week) %&amp;gt;% 
+  # spread proportion of planned and nonplanned activity proportion for each week 
+  spread(planned, percentage, fill = 0) %&amp;gt;% 
+  mutate(class = if_else(Y == 0, # if no planned activity
+                         if_else(N == 0, # if no other activity
+                                 &amp;quot;00&amp;quot;,
+                                 &amp;quot;0E&amp;quot;),
+                          # if all planned activity else part of planned activity
+                         if_else(Y == 1,
+                                 if_else(N == 0, # if no other activity
+                                         &amp;quot;A0&amp;quot;,
+                                         &amp;quot;AE&amp;quot;),
+                                 if_else(N == 0, # if no other activity
+                                         &amp;quot;E0&amp;quot;,
+                                         &amp;quot;EE&amp;quot;)
+                                 )
+                         )
+        ) %&amp;gt;% 
+  select(-N, -Y)
+
+head(student_activities_classified)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 3
+## # Groups:   id_student, week [6]
+##   id_student  week class
+##        &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;
+## 1      31296     2 0E   
+## 2      31296     3 0E   
+## 3      31296     4 0E   
+## 4      31296     5 0E   
+## 5      31296     6 0E   
+## 6      31296     8 0E&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The problem we need to work on are students who do not engage with the VLE. We need
+to include them and we can combine all the data with the final student outcome:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;unique_students &amp;lt;- student_final_results %&amp;gt;% 
+  select(id_student) %&amp;gt;% 
+  unique() %&amp;gt;% 
+  unlist() %&amp;gt;% 
+  unname()
+
+weeks &amp;lt;- rep(1:maximal_planned_week, 
+            length(unique_students)) 
+
+students_with_all_weeks &amp;lt;- tibble(id_student = sort(rep(unique_students, 
+                                                        maximal_planned_week)
+                                                    ),
+                                  week = weeks)
+
+students_activities_classified_with_final_result &amp;lt;- students_with_all_weeks %&amp;gt;% 
+  left_join(student_activities_classified, by=c(&amp;quot;id_student&amp;quot;,&amp;quot;week&amp;quot;)) %&amp;gt;% 
+  mutate(class = if_else(is.na(class), &amp;quot;00&amp;quot;, class)) %&amp;gt;% 
+  left_join(student_final_results, by=&amp;quot;id_student&amp;quot;) %&amp;gt;% 
+  mutate(class = if_else(week &amp;gt;= date_unregistration &amp;amp; !is.na(date_unregistration), 
+                         &amp;quot;Withdrawn&amp;quot;, 
+                         class)
+         ) %&amp;gt;% 
+  select(-date_unregistration) %&amp;gt;% 
+  mutate(final_result = if_else(final_result == &amp;quot;Distinction&amp;quot;, &amp;quot;Pass&amp;quot;, final_result))
+
+head(students_activities_classified_with_final_result)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 4
+##   id_student  week class final_result
+##        &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;       
+## 1      31296     1 00    Fail        
+## 2      31296     2 0E    Fail        
+## 3      31296     3 0E    Fail        
+## 4      31296     4 0E    Fail        
+## 5      31296     5 0E    Fail        
+## 6      31296     6 0E    Fail&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;analysis&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Analysis&lt;/h1&gt;
+&lt;div id=&#34;whole-cohort&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Whole cohort&lt;/h2&gt;
+&lt;p&gt;At first we will check how many samples we got for each activity cathegory (state):&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;students_activities_classified_with_final_result %&amp;gt;% 
+  group_by(class) %&amp;gt;% 
+  count()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 2
+## # Groups:   class [6]
+##   class         n
+##   &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;
+## 1 00        12146
+## 2 0E        28155
+## 3 AE         1434
+## 4 E0            7
+## 5 EE         7782
+## 6 Withdrawn 19061&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can observe that &lt;code&gt;A0&lt;/code&gt; is not presented in data and &lt;code&gt;E0&lt;/code&gt; has only 7 representatives,
+thus we will exclude them:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;students_to_remove &amp;lt;- students_activities_classified_with_final_result %&amp;gt;% 
+  filter(class == &amp;quot;A0&amp;quot; | class == &amp;quot;E0&amp;quot;) %&amp;gt;% 
+  select(id_student) %&amp;gt;% 
+  unique() %&amp;gt;% 
+  .[[1]]
+
+students_activities_classified_with_final_result &amp;lt;- students_activities_classified_with_final_result %&amp;gt;% 
+  filter(!id_student %in% students_to_remove)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since we will be constructing more than one chain, we define the function to do that:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;create_transition_matrix &amp;lt;- function(students_activities,
+                                     states){
+
+  # template
+  transition_matrix &amp;lt;- matrix(data = numeric(), 
+                              nrow = length(states),
+                              ncol = length(states),
+                              dimnames = list(states, states))
+  
+  # prepare data
+  data_for_markov_chain &amp;lt;- students_activities %&amp;gt;% 
+    select(-final_result) %&amp;gt;% 
+    arrange(id_student, week) 
+  
+  
+  state_vector &amp;lt;- data_for_markov_chain %&amp;gt;% 
+    select(class) %&amp;gt;% 
+    unlist() %&amp;gt;% 
+    unname()
+  
+  state_vector &amp;lt;- c(state_vector[2:length(state_vector)],
+                    state_vector[1])
+  
+
+  data_for_markov_chain$state_2 &amp;lt;- state_vector
+  
+  data_for_markov_chain &amp;lt;- data_for_markov_chain %&amp;gt;% 
+    rename(state_1 = class) %&amp;gt;% 
+    filter(week != max(week)) %&amp;gt;% 
+    select(state_1, state_2)
+  
+  # count transitions
+  for(state1 in states){
+    for(state2 in states){
+      n &amp;lt;- data_for_markov_chain %&amp;gt;%
+        filter(state_1 == state1,
+               state_2 == state2) %&amp;gt;%
+        count() %&amp;gt;%
+        as.numeric()
+      
+      transition_matrix[state1,state2] &amp;lt;- n
+    }
+  }
+  
+  # normalize be row sums
+  normalization_matrix &amp;lt;- transition_matrix %&amp;gt;% 
+    apply(1,sum) %&amp;gt;% 
+    rep(length(states)) %&amp;gt;% 
+    matrix(ncol = length(states), nrow = length(states))
+  
+  transition_matrix &amp;lt;- transition_matrix/normalization_matrix
+  
+  # return
+  transition_matrix
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally we can compute our first Markov chain transition matrix:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# PLAN | OTHER ACTIVITIES OUTSIDE PLAN
+# possible values: 
+# PLAN: 0, E, A; OTHER: 0, E
+states_P_1 &amp;lt;- c(&amp;quot;00&amp;quot;,
+                &amp;quot;0E&amp;quot;,
+                # &amp;quot;E0&amp;quot;, # filtered out
+                &amp;quot;EE&amp;quot;,
+                #&amp;quot;A0&amp;quot;, #f iltered out
+                &amp;quot;AE&amp;quot;,
+                &amp;quot;Withdrawn&amp;quot;)
+
+transition_matrix_P_1 &amp;lt;- create_transition_matrix(students_activities_classified_with_final_result,
+                                                  states_P_1)
+
+# show transition matrix
+(P_1 &amp;lt;- round(transition_matrix_P_1, 2)*100)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##           00 0E EE AE Withdrawn
+## 00        66 29  2  0         2
+## 0E        13 75  9  2         1
+## EE         5 46 37 11         1
+## AE         3 25 63  9         0
+## Withdrawn  0  0  0  0       100&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can now visualize the Markov chain. We will exlude transition edges with probability less than 10 percent
+to achive better readability of graph (with exception of &lt;code&gt;Withdrawn&lt;/code&gt; column):&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;P_1_tmp &amp;lt;- P_1
+P_1_tmp[P_1 &amp;lt;= 10] &amp;lt;- 0
+P_1_tmp[,5] &amp;lt;- P_1[,5]
+graph &amp;lt;- from_adj_matrix(P_1_tmp, mode = &amp;quot;directed&amp;quot;, weighted = T)
+x &amp;lt;- graph$edges_df
+x$label &amp;lt;- x$weight
+graph$edges_df &amp;lt;- x
+
+graph %&amp;gt;% render_graph()&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-1&#34; style=&#34;width:672px;height:480px;&#34; class=&#34;grViz html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-1&#34;&gt;{&#34;x&#34;:{&#34;diagram&#34;:&#34;digraph {\n\ngraph [layout = \&#34;neato\&#34;,\n       outputorder = \&#34;edgesfirst\&#34;,\n       bgcolor = \&#34;white\&#34;]\n\nnode [fontname = \&#34;Helvetica\&#34;,\n      fontsize = \&#34;10\&#34;,\n      shape = \&#34;circle\&#34;,\n      fixedsize = \&#34;true\&#34;,\n      width = \&#34;0.5\&#34;,\n      style = \&#34;filled\&#34;,\n      fillcolor = \&#34;aliceblue\&#34;,\n      color = \&#34;gray70\&#34;,\n      fontcolor = \&#34;gray50\&#34;]\n\nedge [fontname = \&#34;Helvetica\&#34;,\n     fontsize = \&#34;8\&#34;,\n     len = \&#34;1.5\&#34;,\n     color = \&#34;gray80\&#34;,\n     arrowsize = \&#34;0.5\&#34;]\n\n  \&#34;1\&#34; [label = \&#34;00\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n  \&#34;2\&#34; [label = \&#34;0E\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n  \&#34;3\&#34; [label = \&#34;EE\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n  \&#34;4\&#34; [label = \&#34;AE\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n  \&#34;5\&#34; [label = \&#34;Withdrawn\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n\&#34;1\&#34;-&gt;\&#34;1\&#34; [label = \&#34;66\&#34;] \n\&#34;1\&#34;-&gt;\&#34;2\&#34; [label = \&#34;29\&#34;] \n\&#34;1\&#34;-&gt;\&#34;5\&#34; [label = \&#34;2\&#34;] \n\&#34;2\&#34;-&gt;\&#34;1\&#34; [label = \&#34;13\&#34;] \n\&#34;2\&#34;-&gt;\&#34;2\&#34; [label = \&#34;75\&#34;] \n\&#34;2\&#34;-&gt;\&#34;5\&#34; [label = \&#34;1\&#34;] \n\&#34;3\&#34;-&gt;\&#34;2\&#34; [label = \&#34;46\&#34;] \n\&#34;3\&#34;-&gt;\&#34;3\&#34; [label = \&#34;37\&#34;] \n\&#34;3\&#34;-&gt;\&#34;4\&#34; [label = \&#34;11\&#34;] \n\&#34;3\&#34;-&gt;\&#34;5\&#34; [label = \&#34;1\&#34;] \n\&#34;4\&#34;-&gt;\&#34;2\&#34; [label = \&#34;25\&#34;] \n\&#34;4\&#34;-&gt;\&#34;3\&#34; [label = \&#34;63\&#34;] \n\&#34;5\&#34;-&gt;\&#34;5\&#34; [label = \&#34;100\&#34;] \n}&#34;,&#34;config&#34;:{&#34;engine&#34;:&#34;dot&#34;,&#34;options&#34;:null}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;p&gt;We can now compute time to absorption in &lt;code&gt;Withdrawn&lt;/code&gt; state, this is done using
+computing of the fundamental matrix and again we will write the function to do that:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fundamental_matrix &amp;lt;- function(transition_matrix,
+                               states) {
+
+n &amp;lt;- length(states)
+Q &amp;lt;- transition_matrix[-n,-n]
+
+I &amp;lt;- diag(n-1) 
+
+fundamental_matrix &amp;lt;- inv(I-Q)
+
+states[-n]
+
+# fundamental matrix
+list(fundamental_matrix = fundamental_matrix,
+     # time to absorption
+     absorption_time = fundamental_matrix %*% matrix(data=rep(1,n-1), nrow = n-1),
+     # probability of absorption
+     prob_of_absorption = fundamental_matrix %*% matrix(transition_matrix[-n,n],nrow=n-1)
+)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And the result for the whole cohort is:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fundamental_matrix(transition_matrix_P_1,
+                   states_P_1)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $fundamental_matrix
+##                                          
+## [1,] 22.29533 45.10336  9.349230 2.010790
+## [2,] 20.83701 48.66435  9.959898 2.141060
+## [3,] 20.44635 47.07235 11.447280 2.280842
+## [4,] 20.58766 47.36192 10.950323 3.324548
+## 
+## $absorption_time
+##          [,1]
+## [1,] 78.75872
+## [2,] 81.60232
+## [3,] 81.24682
+## [4,] 82.22446
+## 
+## $prob_of_absorption
+##      [,1]
+## [1,]    1
+## [2,]    1
+## [3,]    1
+## [4,]    1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;students-divided-to-those-who-submitted-and-who-do-not-submitted-first-assessment&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Students divided to those who submitted and who do not submitted first assessment&lt;/h2&gt;
+&lt;p&gt;First we need to combine student activities with first assessment results:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# select first assessment id
+assessment_id &amp;lt;- assessments %&amp;gt;% 
+  select(id_assessment) %&amp;gt;% 
+  .[[1]] %&amp;gt;% 
+  .[1]
+
+# select results
+assessment_results &amp;lt;- student_assessment_results %&amp;gt;% 
+  filter(id_assessment == assessment_id) %&amp;gt;% 
+  select(id_student, score)
+
+# combine activities and results
+students_activities_classified_with_assessment_result &amp;lt;- students_activities_classified_with_final_result %&amp;gt;%
+  left_join(assessment_results, by = &amp;quot;id_student&amp;quot;) %&amp;gt;% 
+  mutate(submitted = if_else(is.na(score), &amp;quot;N&amp;quot;, &amp;quot;Y&amp;quot;)) %&amp;gt;% 
+  select(-score) 
+
+head(students_activities_classified_with_assessment_result)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 5
+##   id_student  week class final_result submitted
+##        &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;        &amp;lt;chr&amp;gt;    
+## 1      31296     1 00    Fail         Y        
+## 2      31296     2 0E    Fail         Y        
+## 3      31296     3 0E    Fail         Y        
+## 4      31296     4 0E    Fail         Y        
+## 5      31296     5 0E    Fail         Y        
+## 6      31296     6 0E    Fail         Y&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Thanks to added information we can now split the students and perform the analysis on
+two groups - submitters and non-submitters, we will also filter out activities
+from first 4 weeks, since this is before the submission of the first assessment:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;submitted_students &amp;lt;- students_activities_classified_with_assessment_result %&amp;gt;%
+  filter(submitted == &amp;quot;Y&amp;quot;, week &amp;gt; 4) 
+
+head(submitted_students)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 5
+##   id_student  week class final_result submitted
+##        &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;        &amp;lt;chr&amp;gt;    
+## 1      31296     5 0E    Fail         Y        
+## 2      31296     6 0E    Fail         Y        
+## 3      31296     7 00    Fail         Y        
+## 4      31296     8 0E    Fail         Y        
+## 5      31296     9 0E    Fail         Y        
+## 6      31296    10 00    Fail         Y&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;non_submitted_students &amp;lt;- students_activities_classified_with_assessment_result %&amp;gt;%
+  filter(submitted == &amp;quot;N&amp;quot;, week &amp;gt; 4) 
+
+head(non_submitted_students)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 6 x 5
+##   id_student  week class     final_result submitted
+##        &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;        &amp;lt;chr&amp;gt;    
+## 1      54772     5 Withdrawn Withdrawn    N        
+## 2      54772     6 Withdrawn Withdrawn    N        
+## 3      54772     7 Withdrawn Withdrawn    N        
+## 4      54772     8 Withdrawn Withdrawn    N        
+## 5      54772     9 Withdrawn Withdrawn    N        
+## 6      54772    10 Withdrawn Withdrawn    N&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Again we can check how many samples we have for each activity:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;submitted_students %&amp;gt;% 
+  group_by(class) %&amp;gt;% 
+  count()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 5 x 2
+## # Groups:   class [5]
+##   class         n
+##   &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;
+## 1 00         9257
+## 2 0E        25378
+## 3 AE          361
+## 4 EE         4576
+## 5 Withdrawn  5928&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;non_submitted_students %&amp;gt;% 
+  group_by(class) %&amp;gt;% 
+  count()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 4 x 2
+## # Groups:   class [4]
+##   class         n
+##   &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;
+## 1 00         1920
+## 2 0E          144
+## 3 EE            8
+## 4 Withdrawn 11403&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can observe that some activities are not represented in the data, thus we will
+not be using them.&lt;/p&gt;
+&lt;p&gt;Now, we need to compute transtion matrices. At first for submitters:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;states_submitted &amp;lt;- c(&amp;quot;00&amp;quot;,
+                      &amp;quot;0E&amp;quot;,
+                      &amp;quot;EE&amp;quot;,
+                      &amp;quot;AE&amp;quot;,
+                      &amp;quot;Withdrawn&amp;quot;)
+
+transition_matrix_P_2 &amp;lt;- create_transition_matrix(submitted_students, 
+                                                  states_submitted)
+
+# show transition matrix
+(P_2 &amp;lt;- round(transition_matrix_P_2, 2)*100)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##           00 0E EE AE Withdrawn
+## 00        63 34  2  0         1
+## 0E        13 78  8  1         0
+## EE         6 60 34  1         0
+## AE         1 32 60  7         0
+## Withdrawn  0  0  0  0       100&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;P_2_tmp &amp;lt;- P_2
+P_2_tmp[P_2 &amp;lt;= 10] &amp;lt;- 0
+P_2_tmp[,5] &amp;lt;- P_2[,5]
+graph &amp;lt;- from_adj_matrix(P_2_tmp, mode = &amp;quot;directed&amp;quot;, weighted = T)
+x &amp;lt;- graph$edges_df
+x$label &amp;lt;- x$weight
+graph$edges_df &amp;lt;- x
+
+graph %&amp;gt;% render_graph()&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-2&#34; style=&#34;width:672px;height:480px;&#34; class=&#34;grViz html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-2&#34;&gt;{&#34;x&#34;:{&#34;diagram&#34;:&#34;digraph {\n\ngraph [layout = \&#34;neato\&#34;,\n       outputorder = \&#34;edgesfirst\&#34;,\n       bgcolor = \&#34;white\&#34;]\n\nnode [fontname = \&#34;Helvetica\&#34;,\n      fontsize = \&#34;10\&#34;,\n      shape = \&#34;circle\&#34;,\n      fixedsize = \&#34;true\&#34;,\n      width = \&#34;0.5\&#34;,\n      style = \&#34;filled\&#34;,\n      fillcolor = \&#34;aliceblue\&#34;,\n      color = \&#34;gray70\&#34;,\n      fontcolor = \&#34;gray50\&#34;]\n\nedge [fontname = \&#34;Helvetica\&#34;,\n     fontsize = \&#34;8\&#34;,\n     len = \&#34;1.5\&#34;,\n     color = \&#34;gray80\&#34;,\n     arrowsize = \&#34;0.5\&#34;]\n\n  \&#34;1\&#34; [label = \&#34;00\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n  \&#34;2\&#34; [label = \&#34;0E\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n  \&#34;3\&#34; [label = \&#34;EE\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n  \&#34;4\&#34; [label = \&#34;AE\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n  \&#34;5\&#34; [label = \&#34;Withdrawn\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n\&#34;1\&#34;-&gt;\&#34;1\&#34; [label = \&#34;63\&#34;] \n\&#34;1\&#34;-&gt;\&#34;2\&#34; [label = \&#34;34\&#34;] \n\&#34;1\&#34;-&gt;\&#34;5\&#34; [label = \&#34;1\&#34;] \n\&#34;2\&#34;-&gt;\&#34;1\&#34; [label = \&#34;13\&#34;] \n\&#34;2\&#34;-&gt;\&#34;2\&#34; [label = \&#34;78\&#34;] \n\&#34;3\&#34;-&gt;\&#34;2\&#34; [label = \&#34;60\&#34;] \n\&#34;3\&#34;-&gt;\&#34;3\&#34; [label = \&#34;34\&#34;] \n\&#34;4\&#34;-&gt;\&#34;2\&#34; [label = \&#34;32\&#34;] \n\&#34;4\&#34;-&gt;\&#34;3\&#34; [label = \&#34;60\&#34;] \n\&#34;5\&#34;-&gt;\&#34;5\&#34; [label = \&#34;100\&#34;] \n}&#34;,&#34;config&#34;:{&#34;engine&#34;:&#34;dot&#34;,&#34;options&#34;:null}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;p&gt;And now - non-submitters:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;states_non_submitted &amp;lt;- c(&amp;quot;00&amp;quot;,
+                          &amp;quot;0E&amp;quot;,
+                          &amp;quot;EE&amp;quot;,
+                          &amp;quot;Withdrawn&amp;quot;)
+
+transition_matrix_P_3 &amp;lt;- create_transition_matrix(non_submitted_students, 
+                                                 states_non_submitted)
+
+# show transition matrix
+(P_3 &amp;lt;- round(transition_matrix_P_3, 2)*100)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##           00 0E EE Withdrawn
+## 00        95  3  0         2
+## 0E        51 41  3         5
+## EE        38 38  0        25
+## Withdrawn  0  0  0       100&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;P_3_tmp &amp;lt;- P_3
+P_3_tmp[P_3 &amp;lt;= 10] &amp;lt;- 0
+P_3_tmp[,4] &amp;lt;- P_3[,4]
+graph &amp;lt;- from_adj_matrix(P_3_tmp, mode = &amp;quot;directed&amp;quot;, weighted = T)
+x &amp;lt;- graph$edges_df
+x$label &amp;lt;- x$weight
+graph$edges_df &amp;lt;- x
+
+graph %&amp;gt;% render_graph()&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;htmlwidget-3&#34; style=&#34;width:672px;height:480px;&#34; class=&#34;grViz html-widget&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;application/json&#34; data-for=&#34;htmlwidget-3&#34;&gt;{&#34;x&#34;:{&#34;diagram&#34;:&#34;digraph {\n\ngraph [layout = \&#34;neato\&#34;,\n       outputorder = \&#34;edgesfirst\&#34;,\n       bgcolor = \&#34;white\&#34;]\n\nnode [fontname = \&#34;Helvetica\&#34;,\n      fontsize = \&#34;10\&#34;,\n      shape = \&#34;circle\&#34;,\n      fixedsize = \&#34;true\&#34;,\n      width = \&#34;0.5\&#34;,\n      style = \&#34;filled\&#34;,\n      fillcolor = \&#34;aliceblue\&#34;,\n      color = \&#34;gray70\&#34;,\n      fontcolor = \&#34;gray50\&#34;]\n\nedge [fontname = \&#34;Helvetica\&#34;,\n     fontsize = \&#34;8\&#34;,\n     len = \&#34;1.5\&#34;,\n     color = \&#34;gray80\&#34;,\n     arrowsize = \&#34;0.5\&#34;]\n\n  \&#34;1\&#34; [label = \&#34;00\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n  \&#34;2\&#34; [label = \&#34;0E\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n  \&#34;3\&#34; [label = \&#34;EE\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n  \&#34;4\&#34; [label = \&#34;Withdrawn\&#34;, fillcolor = \&#34;#F0F8FF\&#34;, fontcolor = \&#34;#000000\&#34;] \n\&#34;1\&#34;-&gt;\&#34;1\&#34; [label = \&#34;95\&#34;] \n\&#34;1\&#34;-&gt;\&#34;4\&#34; [label = \&#34;2\&#34;] \n\&#34;2\&#34;-&gt;\&#34;1\&#34; [label = \&#34;51\&#34;] \n\&#34;2\&#34;-&gt;\&#34;2\&#34; [label = \&#34;41\&#34;] \n\&#34;2\&#34;-&gt;\&#34;4\&#34; [label = \&#34;5\&#34;] \n\&#34;3\&#34;-&gt;\&#34;1\&#34; [label = \&#34;38\&#34;] \n\&#34;3\&#34;-&gt;\&#34;2\&#34; [label = \&#34;38\&#34;] \n\&#34;3\&#34;-&gt;\&#34;4\&#34; [label = \&#34;25\&#34;] \n\&#34;4\&#34;-&gt;\&#34;4\&#34; [label = \&#34;100\&#34;] \n}&#34;,&#34;config&#34;:{&#34;engine&#34;:&#34;dot&#34;,&#34;options&#34;:null}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}&lt;/script&gt;
+&lt;p&gt;We can again compute fundamental matrix and time to absorption for both matrices:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fundamental_matrix(transition_matrix_P_2,
+                   states_submitted)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $fundamental_matrix
+##                                         
+## [1,] 37.14889 91.87871 12.59693 1.252732
+## [2,] 35.82263 95.50298 13.02503 1.299411
+## [3,] 35.81776 94.85128 14.45870 1.299243
+## [4,] 35.72444 94.76524 13.90671 2.372618
+## 
+## $absorption_time
+##          [,1]
+## [1,] 142.8773
+## [2,] 145.6500
+## [3,] 146.4270
+## [4,] 146.7690
+## 
+## $prob_of_absorption
+##      [,1]
+## [1,]    1
+## [2,]    1
+## [3,]    1
+## [4,]    1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fundamental_matrix(transition_matrix_P_3,
+                   states_non_submitted)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## $fundamental_matrix
+##                                 
+## [1,] 47.64451 2.795167 0.1559150
+## [2,] 43.02444 4.245332 0.1892808
+## [3,] 34.00086 2.640187 1.1294484
+## 
+## $absorption_time
+##          [,1]
+## [1,] 50.59560
+## [2,] 47.45905
+## [3,] 37.77049
+## 
+## $prob_of_absorption
+##      [,1]
+## [1,]    1
+## [2,]    1
+## [3,]    1&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusions&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Conclusions&lt;/h1&gt;
+&lt;p&gt;We analysed one course from the OULAD data, namely FFF/2014J, using Markov chains.
+From constructed graph representation we can observe several interesting facts:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;students tends to do less next week&lt;/li&gt;
+&lt;li&gt;those who did nothing have larger probability to withdraw&lt;/li&gt;
+&lt;li&gt;if we analyse students who did not submitted first assessment those who did nothing
+tends to do nothing and are passive for the whole course&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For more details see the paper submitted for ECTEL conference. This is its online companion.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hurray! My webpage is finished!</title>
+      <link>http://people.ciirc.cvut.cz/~kuziljak/post/2018_01_23_web_page_finished/</link>
+      <pubDate>Tue, 23 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://people.ciirc.cvut.cz/~kuziljak/post/2018_01_23_web_page_finished/</guid>
+      <description>&lt;p&gt;Finally, after days of struggling with bureaucracy, I managed to find enough time to complete my first &lt;code&gt;blogdown&lt;/code&gt; project - my personal academic webpage! I must admit it &lt;code&gt;blogdown&lt;/code&gt; is awesome and the way Hugo works is brilliant.&lt;/p&gt;
+&lt;p&gt;What seems to be problematic is to migrate all my publications list. I think I will start with that. Maybe this will be my next post in near future (hope not far future…).&lt;/p&gt;
+&lt;p&gt;Btw. I really like the pyramid bar chart, which was included in a template file. Thus I will keep it here:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mar = c(0, 1, 0, 1))
+pie(
+  c(280, 60, 20),
+  c(&amp;#39;Sky&amp;#39;, &amp;#39;Sunny side of pyramid&amp;#39;, &amp;#39;Shady side of pyramid&amp;#39;),
+  col = c(&amp;#39;#0292D8&amp;#39;, &amp;#39;#F7EA39&amp;#39;, &amp;#39;#C4B632&amp;#39;),
+  init.angle = -50, border = NA
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:pie&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;http://people.ciirc.cvut.cz/~kuziljak/~kuziljak/post/2018_01_23_web_page_finished_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figure 1: A fancy pie chart.
+&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
