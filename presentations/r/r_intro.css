@@ -1,0 +1,29 @@
+/* Add image and change bg color */
+.title-slide {
+  background-image: url("https://www.hu-berlin.de/++resource++humboldt.logo.Logo.png");
+  background-position: 80% 15%;
+  background-size: 400px;
+  background-color: #fff;
+  padding-top: 100px;  /* delete this for 4:3 aspect ratio */
+}
+
+/* H2 fonts */
+.title-slide h1 {
+  background-image: url("https://www.r-project.org/logo/Rlogo.svg");
+  background-position: 0% 100%;
+  background-size: 90px;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  color: #fff; 
+  font-size: 5px;
+}
+
+.grViz {
+  margin: auto;
+  width: auto;
+  height: auto;
+}
+
+body > div.remark-slides-area > div.remark-slide-container.remark-visible > div.remark-slide-scaler > div > div > div.right > p > img {
+  width: 20%;
+}

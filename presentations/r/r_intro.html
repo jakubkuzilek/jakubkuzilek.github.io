@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jakub Kuzilek," />
+    <meta name="date" content="2021-05-11" />
+    <script src="libs/header-attrs-2.7/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/middlebury.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="r_intro.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# R
+## Tool for scientific research
+### Jakub Kuzilek,
+### 2021-05-11
+
+---
+
+
+
+
+## What is R?
+* open-source implementation of S programming language
+* programming language &amp; environment for statistical computing and graphics
+* contains facilities for data manipulation, calculation and display
+* intensive tasks can be written in C, C++ or Fortran and called during run time
+* easy extension using packages
+* LaTeX-like documentation
+* great community
+
+.right[
+![](https://www.r-project.org/logo/Rlogo.svg)
+]
+
+---
+
+## History
+* 1976 S developed by John Chambers in Bell Labs
+* 1991 Ross Ihaka and Robert Gentleman start the developing the R
+* 1995 R released under GNU-GPL 
+* 1997 [R Core group](https://www.r-project.org/contributors.html) formed 
+* 1997 [CRAN](https://cran.r-project.org/) founded by Kurt Hornik &amp; Fritz Leisch
+* 2004 first [UseR! conference](https://user2021.r-project.org/)
+* 2009 RStudio founded by J.J. Allaire
+* 2012 R Markdown introduced
+* 2015 R Consortium
+* 2017 10,000 published packages on CRAN
+
+---
+
+## What I like on R
+* native support for data.frames
+* base R supports statistical analysis 
+* many tools which simplifies the work with the data 
+* [CRAN](https://cran.r-project.org/) 
+* packages are reviewed by independent developer from R Core team
+* documentation
+* [RMarkdown](https://rmarkdown.rstudio.com/)
+* many surprising possibilities
+* functional-style language
+* apply instead of for loops
+
+---
+
+## What I hated on R
+* &lt;-
+* apply instead of for loops
+* functional-style language
+* indexing from 1
+* OOP
+
+---
+## R &amp; RStudio
+* latest version of R is available at [CRAN](https://cran.r-project.org/)
+* with base R you can start developing your own analysis
+* [RStudio](https://www.rstudio.com/)
+  * development IDE for R
+  * the most used IDE
+  * provides many features and can be used also for Python, Bash, C++, SQL development
+  * RStudio Desktop or Server
+  
+.right[
+![](https://www.rstudio.com/assets/img/icon-rstudio.svg)
+]
+
+---
+## Comprehensive R Archive Network
+* [CRAN](https://cran.r-project.org/) is the network of servers that stores identical,
+up-to-date versions of codes and documentation for R
+* base R distributions
+* main repository infrastructure for R packages
+* since 1997
+
+.center[
+![](cran.png)
+]
+
+---
+## R packages
+* one of the most awesome features of R
+* provides the extensions of base R
+* extends the R with new statistical/ml methods, features, DB support, ... 
+* 17,567 available packages (2021-05-10)
+* all packages can be installed from within the R 
+* list of packages is available on [CRAN](https://cran.r-project.org/)
+* usually anything you need can be found in the list
+* development of packages is simple and follows the well defined rules
+* every package contains documentation and howtos
+* with extension ([devtools](https://cran.r-project.org/web/packages/devtools/index.html)) one can install package from other repos (github, gilab,...)
+
+---
+
+## RMarkdown 1/2
+* introduced in 2012
+* starts with knitr package, which main idea was to embed code chunks in to the Markdown documents
+* soon knitr was combined with Pandoc
+* knitr executes the code embedded in Markdown and converts the RMarkdown to "normal" Markdown document
+* Pandoc then renders the output (PDF, HTML, Word)
+* later the RStudio started to support RMarkdown Notebooks (like Jupyter notebooks)
+* multiple languages can be used within one notebook
+* it enables the boom of packages that supports building books, webpages, posters, papers,...
+
+---
+
+## RMarkdown 2/2
+
+* Word and PDF documents 
+* RMarkdown notebooks
+* [books](https://bookdown.org/yihui/bookdown/)
+* [webpages](https://jakubkuzilek.github.io/)
+* [posters](https://pbs.twimg.com/media/D9Qf0JDX4AEXJRd.jpg:large)
+* and more ...
+
+
+---
+
+## Data analysis
+* R supports the whole data analysis pipeline
+* many tools (packages) can be used for the task
+* predominantly used tools are from so-called [tidyverse](https://www.tidyverse.org/packages/)
+
+![](https://d33wubrfki0l68.cloudfront.net/571b056757d68e6df81a3e3853f54d3c76ad6efc/32d37/diagrams/data-science.png)
+---
+## Visualisations
+* [ggplot2](https://ggplot2.tidyverse.org/) package 
+* implements grammar of graphics
+* layered way to produce the production quality picture
+
+---
+
+## Shiny
+* by Joe Chang
+* interactive web applications with R
+* deployment on shiny server, shiny-proxy server
+* [more details](https://shiny.rstudio.com/)
+
+---
+## Other features
+* Machine Learning &amp; Deep Learning ([caret](https://topepo.github.io/caret/), [tidymodels](https://www.tidymodels.org/), [targets](https://docs.ropensci.org/targets/), [keras](https://keras.rstudio.com/), [TensorFlow](https://tensorflow.rstudio.com/))
+* REST API building and serving from R ([plumbr](https://www.rplumber.io/))
+* analysis of huge datasets - Spark ([sparklyr](https://spark.rstudio.com/))
+* teaching r in R with [swirl](https://swirlstats.com/) or [learnr](https://rstudio.github.io/learnr/)
+
+---
+# Our infrastructure
+* [RStudio Server](https://r-server.cses.informatik.hu-berlin.de/)
+* [Shiny Proxy server](https://shiny.cses.informatik.hu-berlin.de/)
+
+---
+class: middle, center, inverse
+
+# Thank you!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
