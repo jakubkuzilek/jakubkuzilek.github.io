@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student drop-out modelling</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Jakub Kuzilek, Jonas Vaclavek, Viktor Fuglik and Zdenek Zdrahal" />
+    <meta name="date" content="2018-09-05" />
+    <link href="libs/remark-css/middlebury.css" rel="stylesheet" />
+    <link href="libs/remark-css/middlebury-fonts.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/viz/viz.js"></script>
+    <link href="libs/DiagrammeR-styles/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding/grViz.js"></script>
+    <link rel="stylesheet" href="drop_out_modelling_presentation.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Student drop-out modelling
+## using Virtual Learning Environment behaviour data
+### Jakub Kuzilek, Jonas Vaclavek, Viktor Fuglik and Zdenek Zdrahal
+### 2018-09-05
+
+---
+
+
+
+
+class: center, middle
+
+## Presentation available at: 
+
+[https://bit.ly/2wzVXlk](https://bit.ly/2wzVXlk)
+
+![](figs/qr.png)
+
+---
+
+# Introduction
+
+- patterns leading to drop-out or passive withdrawal
+- (absorbing) Markov chains 
+- 3 cases:
+    - whole cohort, 
+    - first assessment submitting students, 
+    - first assessment non-submitting students
+- open dataset - OULAD
+- all codes available at [https://bit.ly/2JrY5zv](https://bit.ly/2JrY5zv)
+
+---
+# Motivation
+
+- simplify previous approach
+
+![](figs/markov.png)
+
+
+---
+background-image: url(figs/logo_oulad.png)
+background-position: 50% 50%
+
+
+# Data
+
+- contains data from the [Open University](http://www.open.ac.uk/) from years 2013 and 2014
+- detailed information about dataset can be found in paper [Open University Learning Analytics dataset](https://www.nature.com/articles/sdata2017171)
+
+---
+# Data cont.
+
+- selected course `FFF`, presentation `2014J`
+- course is approximately 38 weeks long
+- 5 assessments during the presentation
+- selected course is on STEM subject
+- approximately 1/3 of the students withdrawn
+
+![](figs/module_structure.png)
+
+---
+# Methods
+
+- every week student should interact with recommended resources: 
+    - 0 - not interacted with planned resources
+    - E - did something recommended
+    - A - did everything recommended
+- student can visit other resources:
+    - 0 - did not interacted with any other resources
+    - E - visited some of the other materials
+- we can then define 7 student weekly states:
+
+## `$$00,E0,A0,0E,EE,AE,Withdrawn$$`
+
+* the state `\(Withdrawn\)` is absorbing
+
+---
+# Methods cont.
+
+![](figs/log_transform.png)
+
+---
+# Methods cont. 2
+
+Simplifications: 
+- the probability of transition from state to state does not change over time,
+- student cannot return to a course when withdrawn,
+- the probability of changing the student state depends only on current week 
+
+## Student weekly states &amp;rarr; MCH transition matrix 
+
+---
+
+# Results - Markov chain of the whole cohort
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 00 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 0E &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; EE &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; AE &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Withdrawn &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 66 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0E &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; EE &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 46 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 37 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AE &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 63 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Withdrawn &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+<div id="htmlwidget-b3581842e1b771b76a20" style="width:504px;height:288px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b3581842e1b771b76a20">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n     fontsize = \"10\",\n     shape = \"circle\",\n     fixedsize = \"true\",\n     width = \"0.5\",\n     style = \"filled\",\n     fillcolor = \"aliceblue\",\n     color = \"gray70\",\n     fontcolor = \"gray50\"]\n\nedge [len = \"1.5\",\n     color = \"gray40\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"00\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"2\" [label = \"0E\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"3\" [label = \"EE\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"4\" [label = \"AE\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"5\" [label = \"Withdrawn\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n\"1\"->\"1\" [id = \"1\", weight = \"66\", label = \"66\"] \n\"1\"->\"2\" [id = \"2\", weight = \"29\", label = \"29\"] \n\"1\"->\"5\" [id = \"3\", weight = \"2\", label = \"2\"] \n\"2\"->\"1\" [id = \"4\", weight = \"13\", label = \"13\"] \n\"2\"->\"2\" [id = \"5\", weight = \"75\", label = \"75\"] \n\"2\"->\"5\" [id = \"6\", weight = \"1\", label = \"1\"] \n\"3\"->\"2\" [id = \"7\", weight = \"46\", label = \"46\"] \n\"3\"->\"3\" [id = \"8\", weight = \"37\", label = \"37\"] \n\"3\"->\"4\" [id = \"9\", weight = \"11\", label = \"11\"] \n\"3\"->\"5\" [id = \"10\", weight = \"1\", label = \"1\"] \n\"4\"->\"2\" [id = \"11\", weight = \"25\", label = \"25\"] \n\"4\"->\"3\" [id = \"12\", weight = \"63\", label = \"63\"] \n\"5\"->\"5\" [id = \"13\", weight = \"100\", label = \"100\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+---
+# Results - Markov chain of submitting students
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 00 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 0E &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; EE &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; AE &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Withdrawn &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 63 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0E &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 78 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; EE &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 60 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AE &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 60 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Withdrawn &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+<div id="htmlwidget-9fa2e821115726554e5e" style="width:504px;height:288px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9fa2e821115726554e5e">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n     fontsize = \"10\",\n     shape = \"circle\",\n     fixedsize = \"true\",\n     width = \"0.5\",\n     style = \"filled\",\n     fillcolor = \"aliceblue\",\n     color = \"gray70\",\n     fontcolor = \"gray50\"]\n\nedge [len = \"1.5\",\n     color = \"gray40\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"00\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"2\" [label = \"0E\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"3\" [label = \"EE\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"4\" [label = \"AE\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"5\" [label = \"Withdrawn\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n\"1\"->\"1\" [id = \"1\", weight = \"63\", label = \"63\"] \n\"1\"->\"2\" [id = \"2\", weight = \"34\", label = \"34\"] \n\"1\"->\"5\" [id = \"3\", weight = \"1\", label = \"1\"] \n\"2\"->\"1\" [id = \"4\", weight = \"13\", label = \"13\"] \n\"2\"->\"2\" [id = \"5\", weight = \"78\", label = \"78\"] \n\"3\"->\"2\" [id = \"6\", weight = \"60\", label = \"60\"] \n\"3\"->\"3\" [id = \"7\", weight = \"34\", label = \"34\"] \n\"4\"->\"2\" [id = \"8\", weight = \"32\", label = \"32\"] \n\"4\"->\"3\" [id = \"9\", weight = \"60\", label = \"60\"] \n\"5\"->\"5\" [id = \"10\", weight = \"100\", label = \"100\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+---
+# Results - Markov chain of non-submitting students
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 00 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; 0E &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; EE &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Withdrawn &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 0E &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 51 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 41 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; EE &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 38 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 38 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Withdrawn &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 100 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+<div id="htmlwidget-3b5bc1d820a559f4fefc" style="width:504px;height:288px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3b5bc1d820a559f4fefc">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n     fontsize = \"10\",\n     shape = \"circle\",\n     fixedsize = \"true\",\n     width = \"0.5\",\n     style = \"filled\",\n     fillcolor = \"aliceblue\",\n     color = \"gray70\",\n     fontcolor = \"gray50\"]\n\nedge [len = \"1.5\",\n     color = \"gray40\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"00\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"2\" [label = \"0E\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"3\" [label = \"EE\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n  \"4\" [label = \"Withdrawn\", fillcolor = \"#F0F8FF\", fontcolor = \"#000000\"] \n\"1\"->\"1\" [id = \"1\", weight = \"95\", label = \"95\"] \n\"1\"->\"4\" [id = \"2\", weight = \"2\", label = \"2\"] \n\"2\"->\"1\" [id = \"3\", weight = \"51\", label = \"51\"] \n\"2\"->\"2\" [id = \"4\", weight = \"41\", label = \"41\"] \n\"2\"->\"4\" [id = \"5\", weight = \"5\", label = \"5\"] \n\"3\"->\"1\" [id = \"6\", weight = \"38\", label = \"38\"] \n\"3\"->\"2\" [id = \"7\", weight = \"38\", label = \"38\"] \n\"3\"->\"4\" [id = \"8\", weight = \"25\", label = \"25\"] \n\"4\"->\"4\" [id = \"9\", weight = \"100\", label = \"100\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+---
+# Conclusions
+
+1. students tends to do less next week
+2. those who did nothing have larger probability to withdraw
+3. students who did not submitted first assessment and did nothing after the cut-off,
+tends to do nothing and are passive for the whole course
+
+---
+class: middle, center, inverse
+
+# Thank you!
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

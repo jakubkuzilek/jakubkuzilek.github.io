@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Exploring exam strategies of successful first year</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jakub Kuzilek, Zdenek Zdrahal, Jonas Vaclavek, Viktor Fuglik and Jan Skocilas" />
+    <meta name="date" content="2020-03-20" />
+    <link href="libs/remark-css-0.0.1/middlebury.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/middlebury-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="exploring_exam_strategies.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Exploring exam strategies of successful first year
+## engineering students
+### Jakub Kuzilek, Zdenek Zdrahal, Jonas Vaclavek, Viktor Fuglik and Jan Skocilas
+### 2020-03-20
+
+---
+
+
+
+
+class: center, middle
+
+## Presentation available at: 
+
+&lt;!-- http://people.ciirc.cvut.cz/kuziljak/presentation/lak2020/exploring_exam_strategies.html --&gt;
+[https://bit.ly/391csa9](https://bit.ly/391csa9)
+
+![](figs/qr.png)
+
+---
+
+class: center, middle
+
+# Introduction
+
+---
+
+## Problem
+* Faculty of mechanical engineering (FME), CTU in Prague face the problem of student drop-out
+* many 1st year students fail to complete their first year
+* FME does not collect many information about the students
+* critical for the success are exams
+
+---
+
+## Research question
+.center[
+How successful students plan their exams?
+
+&lt;img src="figs/exam_plan.jpg" width="70%" /&gt;
+&lt;!-- ![](figs/exam_plan.jpg) --&gt;
+]
+
+.footnote[
+image taken from https://strategyeducation.co.uk/wp-content/uploads/2017/07/5-Strategies-To-Be-Exam-Ready.jpg
+]
+
+---
+
+## Our idea
+.center[
+Create visual representation of all "exam paths" taken by students.
+
+&lt;img src="figs/random_graph.png" width="50%" /&gt;
+]
+
+---
+class:center,middle
+
+# Data
+---
+
+## Faculty of Mechanical engineering, CTU in Prague
+
+* one of the oldest and largest CTU faculties 
+* 3000 students in bachelor and master programmes
+* approx. `\(\frac{1}{3}\)` are first year students
+* the largest bachelor programme is Theoretical Fundamentals of Mechanical Engineering
+* in academic year 2017/2018 there were 361 freshman students in this programme
+* only 153 students successfully finished first year (finished all exams and continued studies)
+
+---
+
+## Study organization at FME
+
+* academic year has 2 semesters (winter, summer)
+* each semester ends with exam period
+* for freshmen the exam period is 6 weeks long
+* first year students have 3 mandatory exam courses:
+  * Mathematics I.
+  * Constructive geometry
+  * Physics I.
+* every week of exam period students have the opportunity to take one attempt on each
+exam
+* students have 2 attempts to pass each exam
+
+---
+
+## Data collected
+* for every student the exam outcome and day of exam attempt is recorded
+* each student has 3-6 records in the dataset
+
+Example:
+
+John Doe, Mathematics I., week 1, failed &lt;br/&gt;
+John Doe, Mathematics I., week 3, passed C &lt;br/&gt;
+John Doe, Constructive geometry, week 3, failed &lt;br/&gt;
+John Doe, Physics I., week 5, passed B &lt;br/&gt;
+John Doe, Constructive geometry, week 6, failed &lt;br/&gt;
+
+---
+class: center, middle
+
+# Methods
+
+---
+
+## Observations
+1. exam period has 6 weeks
+2. student accumulates the exam outcomes
+3. for every exam student can be in of 4 states: 
+  * student did not attempt the exam (0)
+  * student failed the first attempt (1)
+  * student failed the second attempt (2)
+  * student passed (3)
+4. every student-exam pair forms 1 cummulative state 
+
+---
+
+## Transforming exam outcomes to student "super" state
+* Since we have 3 exams every student current state in exam period can be represented as a vector:
+`\begin{equation}
+\vec{s} = (P,C,M),
+\end{equation}`
+where `\(P\)`hysics I., `\(C\)`onstructive geometry and `\(M\)`athematics I. represets current cummulative state in one exam. 
+* Vector `\(\vec{s}\)` can be viewed as quaternary (base 4) number and can be transformed
+into decimal number `\(X\)` representing student "super" state:
+`\begin{equation}
+X = 16P + 4C + M
+\end{equation}`
+* There are 64 possible states for each student
+
+---
+
+## Examples
+`\((0,0,3) = 16*0 + 4*0 + 3 = 3\)`
+
+Student passed Mathematics.
+
+&lt;br/&gt;&lt;br/&gt;
+
+`\((2,3,1) = 16*2 + 4*3 + 1 = 45\)`
+
+Student failed twice Physics I., passed Constructive geometry and failed Mathematics I. 
+for the first time.
+
+---
+
+## Building graph
+* we focused on weekly progression
+* every student is represented by sequence of lenth 6 (= lenght of exam period)
+* every element of sequence represents cummulative super state of student 
+* every element of sequence represents student exam outcomes achieved until the week corresponding to element position
+
+---
+
+## Example
+John Doe, Mathematics I., week 1, failed &lt;br/&gt;
+John Doe, Mathematics I., week 3, passed C &lt;br/&gt;
+John Doe, Constructive geometry, week 3, failed &lt;br/&gt;
+John Doe, Physics I., week 5, passed B &lt;br/&gt;
+John Doe, Constructive geometry, week 6, failed &lt;br/&gt;
+
+---
+
+## Example
+John Doe, Mathematics I., week 1, failed &lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+![](figs/example_sequence_1.png)
+---
+
+## Example
+John Doe, Mathematics I., week 1, failed &lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+![](figs/example_sequence_2.png)
+---
+
+## Example
+John Doe, Mathematics I., week 1, failed &lt;br/&gt;
+John Doe, Mathematics I., week 3, passed C &lt;br/&gt;
+John Doe, Constructive geometry, week 3, failed &lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+![](figs/example_sequence_3.png)
+
+---
+
+## Example
+John Doe, Mathematics I., week 1, failed &lt;br/&gt;
+John Doe, Mathematics I., week 3, passed C &lt;br/&gt;
+John Doe, Constructive geometry, week 3, failed &lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+![](figs/example_sequence_4.png)
+---
+
+## Example
+John Doe, Mathematics I., week 1, failed &lt;br/&gt;
+John Doe, Mathematics I., week 3, passed C &lt;br/&gt;
+John Doe, Constructive geometry, week 3, failed &lt;br/&gt;
+John Doe, Physics I., week 5, passed B &lt;br/&gt;&lt;br/&gt;
+
+![](figs/example_sequence_5.png)
+---
+
+## Example
+John Doe, Mathematics I., week 1, failed &lt;br/&gt;
+John Doe, Mathematics I., week 3, passed C &lt;br/&gt;
+John Doe, Constructive geometry, week 3, failed &lt;br/&gt;
+John Doe, Physics I., week 5, passed B &lt;br/&gt;
+John Doe, Constructive geometry, week 6, failed &lt;br/&gt;
+
+![](figs/example_sequence_6.png)
+
+---
+
+## Building graph cont.
+* from student state sequences one can build the graph
+* graph is represented by transition matrix `\(T\)`, which elements represents probabilities
+of transitions between states
+* in our case transition probability `\(p_{ij}\)` form state `\(s_i\)` in week `\(i\)` to state `\(s_j\)` in week `\(j\)` is computed as ratio between number of student transitioning to state `\(s_j\)` from state `\(s_i\)` ( `\(N\)` ) and total number of students in state `\(s_i\)` ( `\(N_{tot}\)` ):
+
+`\begin{equation}
+p_{ij}=\frac{N}{N_{tot}}
+\end{equation}`
+
+* matrix `\(T\)` can be visualised using graph
+* resulting graph represents non-homogeneous Markov chain
+
+---
+
+class: center, middle
+# Results
+
+---
+
+## Whole cohort
+.center[
+&lt;img src="figs/graph.png" width="70%" /&gt;
+]
+&lt;!-- ![](figs/graph.png) --&gt;
+
+---
+
+## Most probable paths
+
+![](figs/most_probable_paths.png)&lt;!-- --&gt;
+
+---
+
+# Future
+* creating graphs for whole cohorts and other "performance" groups
+* simulation of the exam taking with changed conditions
+* usign sequences for predicting student results
+
+---
+
+class: middle, center, inverse
+
+# Thank you!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

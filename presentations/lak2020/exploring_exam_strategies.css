@@ -1,0 +1,19 @@
+/* Add image and change bg color */
+.title-slide {
+  background-image: url("./figs/logo_ciirc.jpg");
+  background-position: 15% 15%;
+  background-size: 250px;
+  background-color: #fff;
+  padding-left: 100px;  /* delete this for 4:3 aspect ratio */
+}
+/* H2 fonts */
+.title-slide h2 {
+  color: #0D395F; /* Middlebury grey accent 1 */ 
+  font-size: 45px;
+}
+
+.grViz {
+  margin: auto;
+  width: auto;
+  height: auto;
+}
