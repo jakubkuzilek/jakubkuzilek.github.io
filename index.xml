@@ -24,10 +24,12 @@ I am postdoc researcher at Czech Technical University in Prague. Since completio
       <guid>https://jakubkuzilek.github.io/contact/</guid>
       <description>Contact  Email: jakub.kuzilek@hu-berlin.de
 Phone: +49 30 2093-41119
-  Due to COVID-19 situation I am not usually in the office. Please, use e-mail for the queries. Mailing Address  Rudower Chaussee 25, Room 3.415
+  Consultation Hours  By appointment only
+  Tuesday 12:00 - 15:00
+  Mailing Address  Rudower Chaussee 25, Room 3.415
 Berlin
 Germany
-  Social  Scholar Twitter LinkedIn  </description>
+  Social  Scholar LinkedIn ResearchGate  </description>
     </item>
     
     <item>
@@ -36,9 +38,8 @@ Germany
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://jakubkuzilek.github.io/publications/</guid>
-      <description>Publications 2022 C. Schumacher, &amp;amp; J. Kuzilek. (2022). How do students perceive algorithmic grouping in higher education? Poster to be presented at the Conference on Learning Analytics and Knowledge, Virtual Conference, 21-03-2022, 2022
-C. Schumacher, J. Kuzilek, &amp;amp; D. Ifenthaler. (2022). Investigating students&#39; use of online formative self-assessments in higher education using learning analytics. Accepted for presentation at AERA Annual Meeting, Hybrid Conference, 21-04-2022, 2022
-2021 Kuzilek, J., Zdrahal, Z., &amp;amp; Fuglik, V.</description>
+      <description>Publications 2024 Cavus, M., &amp;amp; Kuzilek, J. (2024) The Actionable Explanations for Student Success Prediction Models: A Benchmark Study on the Quality of Counterfactual Methods. Human-Centric eXplainable AI in Education Workshop at 17th Educational Data Mining Conference 2024.
+Palomino, A., Fischer, A., Kuzilek, J., Nitsch, J., Pinkwart, N., &amp;amp; Paaßen, B. (2024) EdTec-QBuilder: A Semantic Retrieval Tool for Assembling Vocational Training Exams in German Language. Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 3: System Demonstrations).</description>
     </item>
     
     <item>
@@ -47,7 +48,7 @@ C. Schumacher, J. Kuzilek, &amp;amp; D. Ifenthaler. (2022). Investigating studen
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://jakubkuzilek.github.io/research/</guid>
-      <description>Research I am a senior postdoctoral researcher at Humbold-University of Berlin in Prof. Niels Pinkwart research group. At present, I am focusing on the research on collaborative learning with a particular focus on group interaction in online environments during the work on the assigned task. I am focusing on methods, which uncovers the behaviour leading to: 1) Successful finish of the task; 2) Identification of at-risk collaborative groups; 3) Automatic forming the collaborative groups.</description>
+      <description>Research  Learning Analytics   Educational Data mining    Explainable AI   Machine Learning   Projects    Year Project Funding source Role     2011 Multimedia support for ECG signal processing education University Development Foundation (CTU) Principal Investigator   2012 Multimedia support for accessible web education University Development Foundation (CTU) Principal Investigator   2010 - 2012 New approaches in acquisition, evaluation and use of biological data University Development Foundation Researcher   2013 - 2016 New approaches in acquisition, evaluation and use of biological data II.</description>
     </item>
     
     <item>
@@ -56,11 +57,11 @@ C. Schumacher, J. Kuzilek, &amp;amp; D. Ifenthaler. (2022). Investigating studen
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://jakubkuzilek.github.io/teaching/</guid>
-      <description>Teaching Here you can find current (most recent) information for students.
-Individual projects Forschungsseminar des Lehrstuhls &amp;ldquo;Didaktik der Informatik | Informatik und Gesellschaft&amp;rdquo; Research seminar website
-Students need to work on a small research topic (make a state-of-the-art, small project, etc.). Feel free to contact me, and we will work out a topic based on your interests and experience.
-Running:
- Tim Behnke: Adaptive assessment framework (working title) (*) Xuwei Qin: Pedagogical agents for collaborative learning in higher education (*)  Past projects:</description>
+      <description>Teaching Learning Analytics (dashboards) Group work seminar on the development of own Learning Analytics Dashboard using Open University Learning Analytics Dataset as underlying data source.
+Template solution Resources
+Machine Learning for Education Course focus on getting overall understanding of Machine Learning and its application in Education via external lectures and practical seminars.
+Resources
+Mentoring Individual projects Individual research project for one semester. I got a bunch of exciting topics for the project.</description>
     </item>
     
   </channel>
